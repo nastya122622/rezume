@@ -1,0 +1,272 @@
+<div class="page-wrapper">
+  
+  <!-- ШАПКА -->
+  <header class="header">
+    <div class="container">
+      <div class="header-grid">
+        <div class="avatar-col">
+          <img src="https://github.com/lobanovanas208-del/portfolio-certificates/blob/main/vwt3KuOYNPa77wD5fg34c3tvZ9Aasn9xxoUD3qB9grg83odMWRKNWp161kdT_XlcmDslGNKbJiZ6uchM0mKVq30K.jpg?raw=true" 
+               alt="Аватар" class="avatar">
+          <div class="stats-row">
+            <div class="stat"><span class="stat-num">5+</span><span class="stat-text">Курсов</span></div>
+            <div class="stat"><span class="stat-num">6+</span><span class="stat-text">Проектов</span></div>
+            <div class="stat"><span class="stat-num">2027</span><span class="stat-text">Выпуск</span></div>
+          </div>
+        </div>
+        <div class="info-col">
+          <h1 class="name">Лобанова Анастасия Витальевна</h1>
+          <p class="speciality">Студент-разработчик: Angular • Веб-разработка • Информационные системы</p>
+          <div class="bio-card">
+            <p>Создаю функциональные веб-приложения с акцентом на удобство пользователей. Учусь быстро и решаю нетривиальные задачи.</p>
+          </div>
+          <div class="contact-details">
+            <div><strong>🏫 Место учёбы:</strong> ГБПОУ МО «Люберецкий техникум имени Ю.А. Гагарина»</div>
+            <div><strong>📚 Специальность:</strong> 09.02.07 «Информационные системы и программирование»</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- НАВИГАЦИЯ -->
+  <nav class="navbar">
+    <div class="container">
+      <div class="nav-buttons">
+        <button *ngFor="let item of navItems" 
+                class="nav-btn" 
+                [class.active]="activeSection === item.id" 
+                (click)="scrollTo(item.id)">
+          <span class="nav-icon">{{item.icon}}</span>
+          <span>{{item.label}}</span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ОСНОВНОЙ КОНТЕНТ -->
+  <main class="main">
+    <div class="container">
+
+      <!-- ГЛАВНАЯ -->
+      <section id="home" class="section">
+        <div class="hero-block">
+          <h2 class="section-title">🌟 Добро пожаловать в моё портфолио!</h2>
+          <p class="hero-text">Я студентка техникума, увлекаюсь веб-разработкой и созданием современных интерфейсов. Здесь вы найдете мои проекты, курсы и профессиональный опыт.</p>
+          <div class="hero-stats">
+            <div class="hero-stat"><span class="big-number">5+</span><span>Пройденных курсов</span></div>
+            <div class="hero-stat"><span class="big-number">6+</span><span>Реализованных проектов</span></div>
+            <div class="hero-stat"><span class="big-number">2026</span><span>Год выпуска</span></div>
+          </div>
+          <div class="hero-buttons">
+            <button class="btn-primary" (click)="scrollTo('projects')">💼 Смотреть проекты</button>
+            <button class="btn-secondary" (click)="scrollTo('courses')">📚 Изучить навыки</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- КУРСЫ -->
+      <section id="courses" class="section">
+        <h2 class="section-title">📖 Курсы и сертификаты</h2>
+        <p class="section-subtitle">Образовательные программы для развития профессиональных навыков</p>
+        
+        <div class="filter-group">
+          <button (click)="filterCourses('all')" [class.active-filter]="coursesFilter === 'all'">Все курсы</button>
+          <button (click)="filterCourses('sber')" [class.active-filter]="coursesFilter === 'sber'">СберУниверситет</button>
+          <button (click)="filterCourses('other')" [class.active-filter]="coursesFilter === 'other'">Другие</button>
+        </div>
+
+        <div class="cards-grid">
+          <div class="course-card" *ngFor="let course of filteredCoursesList">
+            <div class="card-header">
+              <div>
+                <h3>{{course.title}}</h3>
+                <p class="platform">{{course.platform}} • {{course.year}}</p>
+              </div>
+              <span class="badge">{{course.type === 'sber' ? 'Сбер' : 'Другой'}}</span>
+            </div>
+            <p class="desc">{{course.description}}</p>
+            <div class="skills">
+              <span class="skill" *ngFor="let skill of course.skills">{{skill}}</span>
+            </div>
+            <a [href]="course.certificateUrl" target="_blank" class="card-link">
+              📜 Посмотреть сертификат →
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- ПРОЕКТЫ -->
+      <section id="projects" class="section">
+        <h2 class="section-title">💻 Проекты и олимпиады</h2>
+        <p class="section-subtitle">Практические работы, конкурсы и соревнования</p>
+
+        <div class="cards-grid two-columns">
+          <div class="project-card" *ngFor="let project of projectsList">
+            <div class="project-header">
+              <h3>{{project.title}}</h3>
+              <span class="role-badge">{{project.role}}</span>
+            </div>
+            <p class="desc">{{project.description}}</p>
+            <div class="tasks" *ngIf="project.tasks">
+              <strong>📌 Выполненные задачи:</strong>
+              <ul>
+                <li *ngFor="let task of project.tasks">{{task}}</li>
+              </ul>
+            </div>
+            <div class="project-links">
+              <a *ngFor="let link of project.links" [href]="link.url" target="_blank" class="project-link">
+                {{link.icon}} {{link.text}}
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ПРАКТИКА -->
+      <section id="practice" class="section">
+        <h2 class="section-title">🔧 Производственная практика</h2>
+        <p class="section-subtitle">Опыт работы в библиотеке</p>
+        <div class="practice-card">
+          <h3>📍 Библиотека, ул. Академика Жукова, 34, Дзержинский</h3>
+          <p><strong>Период:</strong> Сентябрь 2024</p>
+          <div class="tasks-grid">
+            <div class="task-chip">🧹 Очистка полок от пыли</div>
+            <div class="task-chip">📚 Очистка книг от пыли</div>
+            <div class="task-chip">📦 Перестановка стеллажей</div>
+            <div class="task-chip">📊 Систематизация книжного фонда</div>
+          </div>
+          <div class="reflection">
+            <strong>💭 Рефлексия:</strong>
+            <p>Практика позволила развить навыки организации пространства, системного подхода к работе и внимания к деталям.</p>
+          </div>
+          <a href="https://lobanovanas208-del.github.io/teter/" target="_blank" class="practice-link">🎮 Интерактивная новелла о практике</a>
+        </div>
+      </section>
+
+      <!-- САМОРАЗВИТИЕ -->
+      <section id="self-development" class="section">
+        <h2 class="section-title">🚀 Саморазвитие</h2>
+        <p class="section-subtitle">Дорожная карта и учебные материалы</p>
+
+        <div class="roadmap-grid">
+          <div class="road-card">
+            <div class="road-icon">🎨</div>
+            <h3>Frontend разработка</h3>
+            <div class="progress"><div class="progress-fill" style="width:70%"></div><span>70%</span></div>
+          </div>
+          <div class="road-card">
+            <div class="road-icon">🐍</div>
+            <h3>Python программирование</h3>
+            <div class="progress"><div class="progress-fill" style="width:60%"></div><span>60%</span></div>
+          </div>
+          <div class="road-card">
+            <div class="road-icon">📜</div>
+            <h3>Квалификация</h3>
+            <div class="progress"><div class="progress-fill" style="width:85%"></div><span>85%</span></div>
+          </div>
+        </div>
+
+        <div class="study-block">
+          <h3>📊 Курсовое проектирование</h3>
+          <div class="study-links">
+            <a href="https://drive.google.com/file/d/1S_aywNWErHUYcwRz_Dta0okH5xpZq32L/view" target="_blank" class="study-link">📐 Диаграммы (Use Case, ER, User Flow)</a>
+            <a href="https://drive.google.com/file/d/1xZhrCevY15PBP3-IkXPdTPnDeNIKJI72/view" target="_blank" class="study-link">🗄️ База данных (Dbeaver/SQLite)</a>
+            <a href="https://drive.google.com/file/d/1NVdPCug3L6DRepZV2n_UeRl6yQBS7BgV/view" target="_blank" class="study-link">📁 Дополнительные материалы</a>
+          </div>
+        </div>
+
+        <div class="study-block">
+          <h3>📚 Учебные материалы</h3>
+          <div class="study-links">
+            <a href="https://docs.google.com/document/d/1utyq7lWSg4jCJ9ihaFw6LUsXQ3yDbtvWdZ0htM1R5MQ/edit" target="_blank" class="study-link">📄 Конспект: Цифровое производство</a>
+            <a href="https://docs.google.com/document/d/1ojEmzvUHwKxWrzK7WjqHMdAGVeQXEvsghhDbbBOqW_A/edit" target="_blank" class="study-link">📄 Конспект: Численные методы</a>
+            <a href="https://colab.research.google.com/drive/1FdQZNgbq-n1LohjDsskuAPUipQ_IWfly" target="_blank" class="study-link">🐍 Colab: Численные методы</a>
+          </div>
+        </div>
+
+        <!-- КОНФЕРЕНЦИИ С КНОПКОЙ И КАРТИНКОЙ -->
+        <div class="study-block">
+          <h3>🎤 Конференции и мероприятия</h3>
+          <div class="event-card-inline">
+            <div class="event-image-container">
+              <img [src]="conferenceImageUrl" alt="Конференция 1С 2026" class="event-img" 
+                   onerror="this.src='https://via.placeholder.com/200x150?text=Фото+конференции'">
+            </div>
+            <div class="event-info">
+              <strong>Конференция 1С: Образование 2026</strong><br>
+              📍 Очное участие<br>
+              📅 2026 год<br>
+              <a href="https://educonf.1c.ru/conf2026/" target="_blank" class="event-button">🔗 Перейти на сайт конференции</a>
+              <a [href]="'https://drive.google.com/file/d/1J6SOo_PAnT2ID-GitmNtqxcfjbuQEUhh/view?usp=drive_link'" target="_blank" class="event-button secondary">📸 Открыть фото</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="skills-cloud">
+          <h3>📌 Направления развития:</h3>
+          <div class="tags">
+            <span>Angular</span><span>TypeScript</span><span>JavaScript</span><span>Python</span>
+            <span>GigaChat</span><span>1C</span><span>Bash</span><span>HTML/CSS</span><span>Git</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ОБО МНЕ -->
+      <section id="about" class="section">
+        <h2 class="section-title">👤 Обо мне</h2>
+        <p class="section-subtitle">Профессиональная биография, контакты и социальная активность</p>
+
+        <div class="about-card">
+          <h3>Профессиональная биография</h3>
+          <p>Студентка Люберецкого техникума имени Ю.А. Гагарина, увлеченная созданием современных и функциональных веб-приложений. Заинтересована в frontend-разработке и создании удобных пользовательских интерфейсов.</p>
+          
+          <h4>📚 Образование:</h4>
+          <ul>
+            <li><strong>Учебное заведение:</strong> ГБПОУ МО «Люберецкий техникум имени Ю.А. Гагарина»</li>
+            <li><strong>Специальность:</strong> 09.02.07 «Информационные системы и программирование»</li>
+            <li><strong>Год окончания:</strong> 2027</li>
+          </ul>
+
+          <h4>🔗 Контакты и ссылки:</h4>
+          <div class="contact-links-row">
+            <a href="https://github.com/lobanovanas208-del" target="_blank">🐙 GitHub</a>
+            <a href="https://www.yougile.com/board/whnjldqkupcw" target="_blank">📋 YouGile</a>
+            <a href="https://t.me/wuixsom" target="_blank">✈️ Telegram</a>
+          </div>
+
+          <!-- СОЦИАЛЬНАЯ АКТИВНОСТЬ С КНОПКАМИ И КАРТИНКАМИ -->
+          <h4>🌟 Социальная активность</h4>
+          <div class="social-gallery">
+            <div class="social-item">
+              <img [src]="socialImage1" alt="Активность в канале Max" class="social-img" 
+                   onerror="this.src='https://via.placeholder.com/300x200?text=Фото+активности'">
+              <p>Реакции и комментарии в канале «Max»</p>
+              <a [href]="'https://drive.google.com/file/d/1M6dMPrLY0gjrf2v_aLLnn4swuzJpx0LW/view?usp=drive_link'" target="_blank" class="social-button">📸 Открыть фото</a>
+            </div>
+            <div class="social-item">
+              <img [src]="socialImage2" alt="Активность в канале Max 2" class="social-img" 
+                   onerror="this.src='https://via.placeholder.com/300x200?text=Фото+активности'">
+              <p>Участие в обсуждениях IT-тематики</p>
+              <a [href]="'https://drive.google.com/file/d/1LNjA9Q9NEJVC2kBu2gUejCOTIo8hbO45/view?usp=drive_link'" target="_blank" class="social-button">📸 Открыть фото</a>
+            </div>
+          </div>
+          <div class="social-summary">
+            ✅ Активная позиция в профессиональном сообществе<br>
+            ✅ Обмен опытом с коллегами-разработчиками<br>
+            ✅ Слежение за трендами в веб-разработке
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- ПОДВАЛ -->
+  <footer class="footer">
+    <div class="container">
+      <p>© {{currentYear}} Лобанова Анастасия, ГБПОУ МО «Люберецкий техникум имени Ю.А. Гагарина»</p>
+      <p>Год окончания обучения: 2027</p>
+    </div>
+  </footer>
+
+</div>

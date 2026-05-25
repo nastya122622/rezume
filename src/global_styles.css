@@ -1,0 +1,65 @@
+/* ============================================ */
+/* ДОПОЛНИТЕЛЬНЫЕ СТИЛИ ДЛЯ НОВЫХ СЕКЦИЙ        */
+/* ============================================ */
+
+/* Стили для карточек проектов (улучшение) */
+.project-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.project-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 30px rgba(93, 52, 175, 0.15);
+}
+
+.project-card-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.project-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: #f0e6ff;
+  color: #5d34af;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.project-link:hover {
+  background: #5d34af;
+  color: white;
+  transform: translateY(-2px);
+}
+
+/* Стили для badge олимпиад */
+.project-card-badge {
+  background: linear-gradient(135deg, #ff6b6b 0%, #ff8e8e 100%);
+  color: white;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+/* Адаптивность для мобильных */
+@media (max-width: 768px) {
+  .project-card-links {
+    flex-direction: column;
+  }
+  
+  .project-link {
+    justify-content: center;
+  }
+  
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+}
